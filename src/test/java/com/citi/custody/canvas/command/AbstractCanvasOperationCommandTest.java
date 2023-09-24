@@ -4,13 +4,9 @@ import com.citi.custody.canvas.core.AbstractCanvas;
 import com.citi.custody.canvas.core.Coordinate;
 import com.citi.custody.canvas.core.ICanvas;
 import com.citi.custody.canvas.core.SimpleCanvas;
-import com.citi.custody.canvas.exception.ArgumentMissingException;
-import com.citi.custody.canvas.exception.CoordinateOutOfBoundException;
-import com.citi.custody.canvas.exception.IllegalCanvasBoundaryException;
+import com.citi.custody.canvas.exception.ParameterMissingException;
 import com.citi.custody.canvas.exception.IllegalCoordinateException;
 import org.junit.Test;
-
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -21,7 +17,7 @@ public class AbstractCanvasOperationCommandTest {
         AbstractCanvas canvas = new SimpleCanvas(20, 4);
         String[] args = {"L", "1", "2", "6", "2"};
         try {
-            new AbstractCanvasOperationCommand(args) {
+            new AbstractCanvasOperationCommand("L", args) {
                 @Override
                 protected int getExpectedParameterCount() {
                     return 6;
@@ -34,7 +30,23 @@ public class AbstractCanvasOperationCommandTest {
             };
             fail("should not go here");
         } catch (Exception e) {
-            assertTrue(ArgumentMissingException.class.isInstance(e));
+            assertTrue(ParameterMissingException.class.isInstance(e));
+        }
+
+        try {
+            new AbstractCanvasOperationCommand("L", args) {
+                @Override
+                protected int getExpectedParameterCount() {
+                    return 5;
+                }
+
+                @Override
+                public ICanvas execute(ICanvas canvas) {
+                    return null;
+                }
+            };
+        } catch (Exception e) {
+            fail("should not go here");
         }
     }
 
@@ -60,7 +72,7 @@ public class AbstractCanvasOperationCommandTest {
     public void testGetCoordinateFromParameter() {
         AbstractCanvas canvas = new SimpleCanvas(20, 4);
         String[] args = {"L", "1", "2", "6", "2"};
-        AbstractCanvasOperationCommand command = new AbstractCanvasOperationCommand(args) {
+        AbstractCanvasOperationCommand command = new AbstractCanvasOperationCommand("L", args) {
             @Override
             protected int getExpectedParameterCount() {
                 return 5;
@@ -80,7 +92,7 @@ public class AbstractCanvasOperationCommandTest {
         assertEquals(2, to.getY());
 
         String[] args2 = {"L", "1", "2ab", "6", "2"};
-        command = new AbstractCanvasOperationCommand(args2) {
+        command = new AbstractCanvasOperationCommand("L", args2) {
             @Override
             protected int getExpectedParameterCount() {
                 return 5;

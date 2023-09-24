@@ -4,6 +4,7 @@ import com.citi.custody.canvas.exception.CoordinateOutOfBoundException;
 import com.citi.custody.canvas.exception.IllegalCanvasBoundaryException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractCanvas implements ICanvas {
@@ -50,6 +51,6 @@ public abstract class AbstractCanvas implements ICanvas {
         for (int i=0; i<board.length; i++) {
             ans.add(new String(board[i]));
         }
-        return ans;
+        return Collections.unmodifiableList(ans);
     }
 }

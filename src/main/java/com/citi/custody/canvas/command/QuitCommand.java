@@ -6,11 +6,11 @@ import com.citi.custody.canvas.core.ICanvas;
 public class QuitCommand extends AbstractCanvasOperationCommand {
 
     public QuitCommand(String[] params) {
-        super(params);
+        super(CanvasCommandTypeEnum.Q.name(), params);
     }
 
     @Override
-    protected int getExpectedParameterCount() {
+    public int getExpectedParameterCount() {
         return 1;
     }
 

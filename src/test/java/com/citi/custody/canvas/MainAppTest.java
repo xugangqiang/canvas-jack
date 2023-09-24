@@ -60,7 +60,8 @@ public class MainAppTest {
         for (int i=2; i<=6;i++) {
             assertEquals('x', view.get(i).charAt(1));
             assertEquals('x', view.get(i).charAt(17));
-        }        MainApp.showCanvas();
+        }
+        MainApp.showCanvas(canvas);
     }
 
     @Test

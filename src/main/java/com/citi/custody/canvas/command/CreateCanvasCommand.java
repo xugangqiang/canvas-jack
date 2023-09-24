@@ -1,19 +1,17 @@
 package com.citi.custody.canvas.command;
 
-import com.citi.custody.canvas.core.Coordinate;
 import com.citi.custody.canvas.core.ICanvas;
 import com.citi.custody.canvas.core.SimpleCanvas;
-import com.citi.custody.canvas.exception.ArgumentMissingException;
 import com.citi.custody.canvas.exception.IllegalCanvasBoundaryException;
 
 public class CreateCanvasCommand extends AbstractCanvasOperationCommand {
 
     public CreateCanvasCommand(String[] params) {
-        super(params);
+        super(CanvasCommandTypeEnum.C.name(), params);
     }
 
     @Override
-    protected int getExpectedParameterCount() {
+    public int getExpectedParameterCount() {
         return 3;
     }
 
@@ -27,6 +25,4 @@ public class CreateCanvasCommand extends AbstractCanvasOperationCommand {
         }
         return new SimpleCanvas(width, height);
     }
-
-
 }

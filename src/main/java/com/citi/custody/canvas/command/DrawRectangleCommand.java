@@ -2,16 +2,15 @@ package com.citi.custody.canvas.command;
 
 import com.citi.custody.canvas.core.Coordinate;
 import com.citi.custody.canvas.core.ICanvas;
-import com.citi.custody.canvas.exception.ArgumentMissingException;
 
 public class DrawRectangleCommand extends AbstractCanvasOperationCommand {
 
     public DrawRectangleCommand(String[] params) {
-        super(params);
+        super(CanvasCommandTypeEnum.R.name(), params);
     }
 
     @Override
-    protected int getExpectedParameterCount() {
+    public int getExpectedParameterCount() {
         return 5;
     }
 

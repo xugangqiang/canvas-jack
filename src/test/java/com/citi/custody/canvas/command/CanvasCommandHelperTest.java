@@ -8,8 +8,36 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class CanvasCommandHelperTest {
+
+    @Test
+    public void testInvalidCommand() {
+        String[] args = {"c", "10", "2"};
+        Optional<CanvasOperationCommand> cmd = CanvasCommandHelper.getCommand(args);
+        assertFalse(cmd.isPresent());
+
+        args = new String[] {"l", "10", "2", "10", "4"};
+        cmd = CanvasCommandHelper.getCommand(args);
+        assertFalse(cmd.isPresent());
+
+        args = new String[] {"r", "10", "2", "10", "4"};
+        cmd = CanvasCommandHelper.getCommand(args);
+        assertFalse(cmd.isPresent());
+
+        args = new String[] {"q"};
+        cmd = CanvasCommandHelper.getCommand(args);
+        assertFalse(cmd.isPresent());
+
+        args = new String[] {};
+        cmd = CanvasCommandHelper.getCommand(args);
+        assertFalse(cmd.isPresent());
+
+        args = null;
+        cmd = CanvasCommandHelper.getCommand(args);
+        assertFalse(cmd.isPresent());
+    }
 
     @Test
     public void testCreateCanvasCommand() {

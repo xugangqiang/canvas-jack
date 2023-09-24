@@ -28,7 +28,7 @@ public class MainApp {
             try {
                 commandStr = reader.readLine();
                 processCommand(commandStr);
-                showCanvas();
+                showCanvas(canvas);
             } catch (IOException e) {
                 LogUtil.log("exception:" + e.getMessage());
             }
@@ -54,7 +54,7 @@ public class MainApp {
         System.exit(0);
     }
 
-    public static void showCanvas() {
+    public static void showCanvas(ICanvas canvas) {
         List<String> view = canvas.getCanvasView();
         for (String str : view) {
             System.out.println(str);

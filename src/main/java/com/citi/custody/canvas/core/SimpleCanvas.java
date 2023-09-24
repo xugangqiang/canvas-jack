@@ -50,7 +50,6 @@ public class SimpleCanvas extends AbstractCanvas {
         }
         drawRectangleInternally(new Coordinate(0, 0), new Coordinate(board[0].length-1, board.length-1),
                 xCoordinateBoundaryFillChar, yCoordinateBoundaryFillChar);
-
     }
 
     @Override
@@ -103,14 +102,5 @@ public class SimpleCanvas extends AbstractCanvas {
         for (int i=smaller; i<=bigger; i++) {
             board[i][x] = fill;
         }
-    }
-
-    @Override
-    public List<String> getCanvasView() {
-        List<String> ans = new ArrayList<>(board.length);
-        for (int i=0; i<board.length; i++) {
-            ans.add(new String(board[i]));
-        }
-        return Collections.unmodifiableList(ans);
     }
 }

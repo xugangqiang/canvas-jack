@@ -1,15 +1,23 @@
 package com.citi.custody.canvas.command;
 
-import com.citi.custody.canvas.core.AbstractCanvas;
 import com.citi.custody.canvas.core.ICanvas;
-import com.citi.custody.canvas.core.SimpleCanvas;
+import com.citi.custody.canvas.exception.CommandCreationException;
+import com.citi.custody.canvas.exception.ParameterMissingException;
+import com.citi.custody.canvas.exception.IllegalCanvasBoundaryException;
 import org.junit.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class CreateCanvasCommandTest {
+
+    @Test
+    public void testGetExpectedParameterCount() {
+        String[] args = {"C", "10", "2"};
+        CreateCanvasCommand command = new CreateCanvasCommand(args);
+        assertEquals(3, command.getExpectedParameterCount());
+    }
 
     @Test
     public void testCreateCanvas() {
@@ -26,5 +34,30 @@ public class CreateCanvasCommandTest {
         assertEquals('|', view.get(2).charAt(0));
         assertEquals('|', view.get(1).charAt(11));
         assertEquals('|', view.get(2).charAt(11));
+
+        try {
+            args = new String[] {"c", "10"};
+            new CreateCanvasCommand(args);
+            fail("should not go here");
+        } catch (Exception e) {
+            assertTrue(CommandCreationException.class.isInstance(e));
+        }
+
+        try {
+            args = new String[] {"C", "10"};
+            new CreateCanvasCommand(args);
+            fail("should not go here");
+        } catch (Exception e) {
+            assertTrue(ParameterMissingException.class.isInstance(e));
+        }
+
+        try {
+            args = new String[] {"C", "10", "2abc"};
+            command = new CreateCanvasCommand(args);
+            command.execute(null);
+            fail("should not go here");
+        } catch (Exception e) {
+            assertTrue(IllegalCanvasBoundaryException.class.isInstance(e));
+        }
     }
 }
